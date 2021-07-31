@@ -127,6 +127,7 @@ namespace PdfiumViewer
         {
             if (_currentPage < _document.PageCount)
             {
+                var size = _document.PageSizes[_currentPage];
                 var pageOrientation = GetOrientation(_document.PageSizes[_currentPage]);
                 var printOrientation = GetOrientation(e.PageBounds.Size);
 
@@ -137,6 +138,31 @@ namespace PdfiumViewer
                 double width;
                 double height;
 
+                switch (_settings.Mode)
+                {
+                    case PdfPrintMode.CutMargin:
+                        left = -e.PageSettings.HardMarginX;
+                        top = -e.PageSettings.HardMarginY;
+                        width = e.PageBounds.Width;
+                        height = e.PageBounds.Height;
+                        break;
+                    case PdfPrintMode.Scale:
+                        left = 0;
+                        top = 0;
+                        width = Math.Min(e.PageBounds.Width, size.Width / 72.0 * 100.0 * _settings.ScaleFactor);
+                        height = Math.Min(e.PageBounds.Height, size.Height / 72.0 * 100.0 * _settings.ScaleFactor);
+                        break;
+                    case PdfPrintMode.ShrinkToMargin:
+                        left = 0;
+                        top = 0;
+                        width = e.PageBounds.Width - e.PageSettings.HardMarginX * 2;
+                        height = e.PageBounds.Height - e.PageSettings.HardMarginY * 2;
+                        break;
+                    default:
+                        throw new ArgumentException("Wrong print mode");
+                }
+
+                /*
                 if (_settings.Mode == PdfPrintMode.ShrinkToMargin)
                 {
                     left = 0;
@@ -151,6 +177,7 @@ namespace PdfiumViewer
                     width = e.PageBounds.Width;
                     height = e.PageBounds.Height;
                 }
+                */
 
                 if (pageOrientation != printOrientation)
                 {

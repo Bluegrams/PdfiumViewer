@@ -194,11 +194,6 @@ namespace PdfiumViewer.Demo
             return _document.CreatePrintDocument();
         }
 
-        public PrintDocument CreatePrintDocument(PdfPrintMode printMode)
-        {
-            return _document.CreatePrintDocument(printMode);
-        }
-
         public PrintDocument CreatePrintDocument(PdfPrintSettings settings)
         {
             return _document.CreatePrintDocument(settings);

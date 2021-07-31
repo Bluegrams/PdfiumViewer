@@ -196,7 +196,8 @@ namespace PdfiumViewer.Demo
         {
             using (var form = new PrintPreviewDialog())
             {
-                form.Document = pdfViewer1.Document.CreatePrintDocument(pdfViewer1.DefaultPrintMode);
+                form.Document = pdfViewer1.Document.CreatePrintDocument(
+                    new PdfPrintSettings(pdfViewer1.DefaultPrintMode, 1.0));
                 form.ShowDialog(this);
             }
         }
@@ -321,8 +322,8 @@ namespace PdfiumViewer.Demo
                     pdfViewer1.Document = form.Document;
                 }
             }
-		}
-			
+        }
+
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PdfInformation info = pdfViewer1.Document.GetInformation();
@@ -337,7 +338,7 @@ namespace PdfiumViewer.Demo
             sz.AppendLine($"Modified Date: {info.ModificationDate}");
 
             MessageBox.Show(sz.ToString(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-		}	
+        }
 
         private void _getTextFromPage_Click(object sender, EventArgs e)
         {
