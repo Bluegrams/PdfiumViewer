@@ -22,6 +22,10 @@ namespace PdfiumViewer
         /// <summary>
         /// Cut the hard printer margin from the output.
         /// </summary>
-        CutMargin
+        CutMargin,
+        /// <summary>
+        /// Scales the output to the specified scale factor
+        /// </summary>
+        Scale
     }
 }

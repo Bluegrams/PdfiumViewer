@@ -44,6 +44,7 @@ namespace PdfiumViewer.Demo
             {
                 var settings = new PdfPrintSettings(
                     _viewer.DefaultPrintMode,
+                    1.0,
                     new PdfPrintMultiplePages(
                         horizontal,
                         vertical,
